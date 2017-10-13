@@ -1,5 +1,5 @@
 ## Api-Diff
-> Roughly based on Twitter's [diffy](https://github.com/twitter/diffy). 
+> Roughly based on Twitter's [diffy](https://github.com/twitter/diffy), written from scratch. 
 > Specially the README.md
 
 This project is a transparent proxy that relays every call to three different servers and gets the difference between them.
@@ -17,7 +17,7 @@ from those comparisons. The premise for Api-Diff is that if two implementations 
 “similar” responses for a sufficiently large and diverse set of requests, then the two
 implementations can be treated as equivalent and the newer implementation is regression-free.
 
-## How does Api-Diffy work?
+## How does Api-Diff work?
 
 Api-Diff acts as a proxy that accepts requests drawn from any source that you provide and multicasts
 each of those requests to three different service instances:
@@ -27,7 +27,7 @@ each of those requests to three different service instances:
 3. A secondary instance running the same known-good code as the primary instance
 
 As Api-Diff receives a request, it is multicast and sent to your candidate, primary, and secondary
-instances. When those services send responses back, Diffy compares those responses and looks for two
+instances. When those services send responses back, Api-Diff compares those responses and looks for two
 things:
 
 1. Raw differences observed between the candidate and primary instances.
@@ -36,7 +36,7 @@ things:
    your service may have non-deterministic behavior, which is to be expected.
 
 Api-Diff measures how often primary and secondary disagree with each other vs. how often primary and
-candidate disagree with each other. If these measurements are roughly the same, then Diffy
+candidate disagree with each other. If these measurements are roughly the same, then Api-Diff
 determines that there is nothing wrong and that the error can be ignored.
 
 ## How to get started?
@@ -51,7 +51,7 @@ First create a `.env` file on the root directory based on the [example file](dot
  - `ADMIN_PORT` = This is the dashboard port.
  - `SECRET` = Here you should set a secret in the form `login:password` for Basic Auth, we don't want strangers peeking.
 
-Api-Diff comes bundled with `yarn dev` command that starts the diffy locally. You can then go to your browser at 
+Api-Diff comes bundled with `yarn dev` command that starts the Api-Diff locally. You can then go to your browser at 
 [http://localhost:8081](http://localhost:8081/) to see the dashboard.
 
 That was cool but now you want to compare old and new versions of your own service. Here’s how you can 
@@ -76,3 +76,14 @@ Coming soon...
  
 ## FAQ's
    For safety reasons `POST`, `PUT`, ` DELETE ` are ignored by default. And this will not be changed.
+   
+## License
+
+Licensed under the **[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)** (the "License");
+you may not use this software except in compliance with the License.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
