@@ -17,9 +17,7 @@ diff.get('*', async (req, res) => {
   );
   const realResponses = await Promise.all(responses);
   const sDiff = await semanticDiff(...realResponses);
-  if (sDiff) {
-    brain.set(sDiff, { url, method });
-  }
+  brain.set(sDiff, { url, method });
 });
 
 diff.listen(config.PROXY_PORT, () => {

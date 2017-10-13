@@ -17,12 +17,17 @@ html(lang="en")
         .left
           .title
             | API Diff
+            small
+              |&nbsp;&nbsp;&nbsp;{{total_requests}} requests.
             .btns
               .logout(v-on:click="loadPage(1)"): i.fa.fa-refresh
               .logout(v-on:click="logout"): i.fa.fa-sign-out
           .calls
-            .call(v-for="(call,callK) in paginatedItems", v-on:click="loadItem(callK)")
-              .route {{ callK + 1 }} - {{ call.keys.url }}
+            .call(v-for="(call,callK) in paginatedItems", v-on:click="loadItem(callK)", v-bind:class="[call.diff == null ? 'no-click':'']")
+              .route 
+                |{{ callK + 1 }} - {{ call.keys.url }}
+                small(v-if="call.diff == null")
+                  |&nbsp;(No Diff)
               .timestamp {{ call.keys.timeStamp }}
         .right
           .output(v-show="liveItem.title")

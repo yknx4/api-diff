@@ -10,6 +10,7 @@ export default (url, req, res, forward) =>
         url
       },
       (error, response) => {
+        logger.debug(response);
         if (forward) {
           res.set(response.headers);
           res.status(response.statusCode);

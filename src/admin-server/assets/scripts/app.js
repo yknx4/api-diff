@@ -1,4 +1,10 @@
-const $scope = { paginatedItems: [], pagination: {}, pages: [], liveItem: {} };
+const $scope = {
+  paginatedItems: [],
+  pagination: {},
+  pages: [],
+  liveItem: {},
+  total_requests: 0
+};
 
 const generatePagination = () => {
   const { page, totalPages } = _.clone($scope.pagination);
@@ -24,8 +30,11 @@ const loadItem = index => {
   const item = { diff: {} };
   const liveItem = $scope.paginatedItems[index];
   const { diff, keys } = _.clone(liveItem);
-  const { __old: oldSC } = diff.headers.statusCode;
   item.title = `${keys.url} - ${keys.method}`;
+  if (diff == null) {
+    return;
+  }
+  const { __old: oldSC } = diff.headers.statusCode;
   _.forEach(diff, (sectionData, sectionKey) => {
     item.diff[sectionKey] = {};
     _.forEach(sectionData, (changeValue, changeKey) => {
