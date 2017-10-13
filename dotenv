@@ -1,1 +1,8 @@
-ENVIRONMENT=<development|stage|production>
+ENVIRONMENT=development
+APP_NAME=<appname>
+PRIMARY_HOST=<URL>
+SECONDARY_HOST=<URL>
+CANDIDATE_HOST=<URL>
+PROXY_PORT=<PORT>
+ADMIN_PORT=<OTHER PORT>
+SECRET=<user:password>
