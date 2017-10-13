@@ -3,6 +3,7 @@
     "$": true,
     "document": true,
     "_": true,
-    "Vue": true
+    "Vue": true,
+    "window": true
   }
 }

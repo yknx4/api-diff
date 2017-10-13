@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title API-Diff
+    link(rel="stylesheet", href="/css/app.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js")
+    script(src="https://unpkg.com/vue")
+    script(src="/scripts/app.js")
+  body
+    #app.full-screen
+      .main
+        .left
+          .title
+            | API Diff
+            .btns
+              .logout(v-on:click="loadPage(1)"): i.fa.fa-refresh
+              .logout(v-on:click="logout"): i.fa.fa-sign-out
+          .calls
+            .call(v-for="(call,callK) in paginatedItems", v-on:click="loadItem(callK)")
+              .route {{ callK + 1 }} - {{ call.keys.url }}
+              .timestamp {{ call.keys.timeStamp }}
+        .right
+          .output(v-show="liveItem.title")
+            .sectionTitle {{ liveItem.title }}
+            .section(v-for="(details,sectionName) in liveItem.diff")
+              .sectionName {{ sectionName }}
+              .diff(v-for="(diffValues,key) in details")
+                .action(v-bind:class="diffValues.type") {{ diffValues.type }}
+                | {{ diffValues.reff }}
+                .values
+                  div(
+                    v-for="(change,chKey) in diffValues.values",
+                    v-bind:class="[chKey === 0 ? 'old' : 'new']"
+                  ) {{ change }}
+          div(v-show="!liveItem.title")
+            .batman
+              | API Diff is working but there are no logs to display.
+              .robin Either there are no diffs to show or you haven't use any API routes.
+
+      .footer
+        .navigator
+          .item(
+            v-for="page in pages",
+            v-bind:class="{current:page.current}",
+            v-on:click="loadPage(page.name)"
+          ) {{ page.name }}

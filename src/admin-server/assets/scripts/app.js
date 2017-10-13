@@ -1,5 +1,4 @@
 const $scope = { paginatedItems: [], pagination: {}, pages: [], liveItem: {} };
-const $methods = {};
 
 const generatePagination = () => {
   const { page, totalPages } = _.clone($scope.pagination);
@@ -58,9 +57,7 @@ const loadItem = index => {
   $scope.liveItem = item;
 };
 
-$methods.loadItem = loadItem;
-
-const loadpage = page =>
+const loadPage = page =>
   $.get(`/data.json?page=${page}`, data => {
     _.forEach(data, (value, key) => {
       $scope[key] = value;
@@ -68,10 +65,23 @@ const loadpage = page =>
     generatePagination();
   });
 
-$methods.goToPage = loadpage;
+const logout = () => {
+  const url = window.location.href
+    .replace('http://', 'http://bad:pw@')
+    .replace('https://', 'https://bad:pw@');
+  $.post(url).always(() => {
+    window.location.href = '/';
+  });
+};
+
+const $methods = {
+  loadPage,
+  loadItem,
+  logout
+};
 
 $(document).ready(() => {
-  loadpage(1);
+  loadPage(1);
   const app = new Vue({
     el: '#app',
     data: $scope,

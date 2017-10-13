@@ -17,25 +17,28 @@ app.use(express.static(`${__dirname}/assets`));
 
 const authGateway = (req, res, next) => {
   const [login, password] = config.SECRET.split(':');
-  const auth = { login, password }; // change this
+  const auth = { login, password };
   const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
   const [lgn, pswd] = Buffer.from(b64auth, 'base64')
     .toString()
     .split(':');
 
-  // Verify login and password are set and correct
   if (!lgn || !pswd || lgn !== auth.login || pswd !== auth.password) {
-    res.set('WWW-Authenticate', 'Basic realm="Ricklantis"'); // change this
-    res.status(401).send('You shall not pass.'); // custom message
+    res.set('WWW-Authenticate', 'Basic realm="Ricklantis"');
+    res.status(401).render('./unauthorized.pug');
     return;
   }
   next();
 };
 
-app.use(authGateway);
-
 app.get('/', (req, res) => {
   res.render('./index.pug');
+});
+
+app.use(authGateway);
+
+app.get('/admin', (req, res) => {
+  res.render('./admin.pug');
 });
 
 app.get('/data.json', (req, res) => {
