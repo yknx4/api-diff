@@ -1,0 +1,36 @@
+.title
+  background-color #3d88dd
+  color #ffffff
+  font-size 20px
+  padding 10px
+  width 100%
+.call
+  width 100%
+  color #fff
+  padding 2px 0 2px 2px
+  overflow hidden
+  cursor pointer
+  .route
+    font-size 12px
+    background-color #8f265a
+    padding 10px 10px 4px 10px
+    position relative
+    border-radius 6px 6px 0 0
+    &:after
+      content ''
+      position absolute
+      bottom 0
+      left 5px
+      width calc( 100% - 10px )
+      height 1px
+      background-color #fff
+  .timestamp
+    background-color #8f265a
+    font-size 9px
+    padding 4px 10px 10px 10px
+    text-align right
+    border-radius 0 0 6px 6px
+
+  &:hover
+    .route, .timestamp
+      background-color darken(#8f265a, -5%)

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title API-Diff
+    link(rel="stylesheet", href="/css/app.css")
+  body
+    #app.full-screen
+      .main
+        .left
+          .title API Diff
+          .calls
+            .call
+              .route /
+              .timestamp 2017-10-12 18:30
+        .right
+          .output
+            .section
+              .sectionName headers
+              .diff
+                .action.deleted deleted
+                | holy
+                .values
+                  .old holo
+                  .new
+              .diff
+                .action.added added
+                | changeinheader
+                .values
+                  .old
+                  .new here it is
+              .diff
+                .action.changed changed
+                | statusCode
+                .values
+                  .old 201
+                  .new 201
+            .section
+              .sectionName body
+              .diff
+                .action.added added
+                | simon says
+                .values
+                  .old
+                  .new here is a diff
+
+      .footer
+        .navigator
+          .item 1
+          .item 8
+          .item 9
+          .item 10
+          .item 11
+          .item 12
+          .item 15

@@ -1,61 +1,29 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const forwardRequest = require('./forwardRequest');
-const semanticDiff = require('./semanticDiff');
+import express from 'express';
+import bodyParser from 'body-parser';
+import forwardRequest from './core/forwardRequest';
+import semanticDiff from './core/semanticDiff';
+import brain from './core/fishBrain';
+import './admin-server';
 
 logger.info('App Started');
-const hosts = [
-  ['127.0.0.1:1234', { forward: true }],
-  ['127.0.0.1:1235', { forward: false }],
-  ['127.0.0.1:1236', { forward: false }]
-];
 
 const diff = express();
 diff.use(bodyParser.raw({ limit: '5mb' }));
 
 diff.get('*', async (req, res) => {
-  const responses = hosts.map(async h => {
-    const [host, opts] = h;
-    return forwardRequest(host, req, res, opts);
-  });
+  const responses = config.testHosts.map(async (host, k) =>
+    forwardRequest(host, req, res, k === 0)
+  );
   const realResponses = await Promise.all(responses);
-  console.log(semanticDiff(...realResponses));
+  const sDiff = await semanticDiff(...realResponses);
+  if (sDiff) {
+    const { url, method } = req;
+    brain.set(sDiff, { url, method });
+  }
 });
 
-diff.listen(8000, () => {
-  logger.debug('Example app listening on port 8000!');
+diff.listen(config.PROXY_PORT, () => {
+  logger.info(`Proxy app listening on port ${config.PROXY_PORT}!`);
 });
 
-const app = express();
-
-app.get('/', (req, res) => {
-  res.header('holy', 'holo');
-  res.status(201);
-  res.json({ hello: 'world' });
-});
-
-app.listen(1234, () => {
-  logger.debug('Example app listening on port 3000!');
-});
-
-const app2 = express();
-
-app2.get('/', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
-app2.listen(1235, () => {
-  logger.debug('Example app listening on port 3000!');
-});
-
-const app3 = express();
-
-app3.get('/', (req, res) => {
-  res.header('anuma', 'sicierto');
-  res.json({ hello: 'world1', simon: 'ajua' });
-});
-
-app3.listen(1236, () => {
-  logger.debug('Example app listening on port 3000!');
-});
 export default true;

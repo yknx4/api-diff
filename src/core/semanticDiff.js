@@ -7,16 +7,12 @@ module.exports = function semanticDiff(production, noise, preproduction) {
   const withoutNoise = {
     headers: pickBy(production.headers, (value, key) => {
       const notNoise = noise.headers[key] === value;
-      if (!notNoise) {
-        headersNoiseKeys.push(key);
-      }
+      if (!notNoise) headersNoiseKeys.push(key);
       return notNoise;
     }),
     body: pickBy(production.body, (value, key) => {
       const notNoise = noise.body[key] === value;
-      if (!notNoise) {
-        bodyNoiseKeys.push(key);
-      }
+      if (!notNoise) bodyNoiseKeys.push(key);
       return notNoise;
     })
   };

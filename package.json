@@ -37,7 +37,10 @@
     "lodash": "^4.17.4",
     "prettier": "^1.7.3",
     "prettier-eslint": "^8.2.0",
-    "redbird": "^0.7.0"
+    "pug": "^2.0.0-rc.4",
+    "redbird": "^0.7.0",
+    "request": "^2.83.0",
+    "stylus": "^0.54.5"
   },
   "lint-staged": {
     "src/**/*.{js,json}": [

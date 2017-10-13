@@ -1,0 +1,44 @@
+.output
+  background-color #ffffff
+  padding 10px
+  border-radius 6px
+
+  .section
+    .sectionName
+      font-size 20px
+      font-weight 700
+      &::first-letter
+        text-transform uppercase
+    .diff
+      margin 0 0 5px 10px
+      padding 10px 10px 5px 10px
+      background-color #eee
+      .action
+        display inline-block
+        margin-right 8px
+        padding 4px 6px
+        font-size 12px
+        text-transform uppercase
+        border-radius 6px
+        color #fff
+        &.deleted
+          background-color #882020
+        &.added
+          background-color #298820
+        &.changed
+          background-color #204d88
+      .values
+        display flex
+        > *
+          flex 0 0 auto
+          width 50%
+          unicode-bidi embed
+          font-family monospace
+          background-color #ffffffaa
+          padding 4px 6px
+          margin-top 5px
+        .old
+          border-left 4px solid #600
+        .new
+          margin-left auto
+          border-left 4px solid #060

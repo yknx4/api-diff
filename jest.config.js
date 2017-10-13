@@ -32,4 +32,4 @@ const config = {
   unmockedModulePathPatterns: ['jasmine-expect']
 };
 
-module.exports = Object.assign({}, config, env[process.env.NODE_ENV]);
+module.exports = Object.assign({}, config, env[process.env.ENVIRONMENT]);
