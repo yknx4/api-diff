@@ -11,13 +11,13 @@ const diff = express();
 diff.use(bodyParser.raw({ limit: '5mb' }));
 
 diff.get('*', async (req, res) => {
+  const { url, method } = req;
   const responses = config.testHosts.map(async (host, k) =>
-    forwardRequest(host, req, res, k === 0)
+    forwardRequest(`${host}${url}`, req, res, k === 0)
   );
   const realResponses = await Promise.all(responses);
   const sDiff = await semanticDiff(...realResponses);
   if (sDiff) {
-    const { url, method } = req;
     brain.set(sDiff, { url, method });
   }
 });

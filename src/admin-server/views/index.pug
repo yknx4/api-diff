@@ -6,52 +6,41 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title API-Diff
     link(rel="stylesheet", href="/css/app.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js")
+    script(src="https://unpkg.com/vue")
+    script(src="/scripts/app.js")
   body
     #app.full-screen
       .main
         .left
           .title API Diff
           .calls
-            .call
-              .route /
-              .timestamp 2017-10-12 18:30
+            .call(v-for="(call,callK) in paginatedItems", v-on:click="loadItem(callK)")
+              .route {{ call.keys.url }}
+              .timestamp {{ call.keys.timeStamp }}
         .right
-          .output
-            .section
-              .sectionName headers
-              .diff
-                .action.deleted deleted
-                | holy
+          .output(v-show="liveItem.title")
+            .sectionTitle {{ liveItem.title }}
+            .section(v-for="(details,sectionName) in liveItem.diff")
+              .sectionName {{ sectionName }}
+              .diff(v-for="(diffValues,key) in details")
+                .action(v-bind:class="diffValues.type") {{ diffValues.type }}
+                | {{ diffValues.reff }}
                 .values
-                  .old holo
-                  .new
-              .diff
-                .action.added added
-                | changeinheader
-                .values
-                  .old
-                  .new here it is
-              .diff
-                .action.changed changed
-                | statusCode
-                .values
-                  .old 201
-                  .new 201
-            .section
-              .sectionName body
-              .diff
-                .action.added added
-                | simon says
-                .values
-                  .old
-                  .new here is a diff
+                  div(
+                    v-for="(change,chKey) in diffValues.values",
+                    v-bind:class="[chKey === 0 ? 'old' : 'new']"
+                  ) {{ change }}
+          div(v-show="!liveItem.title")
+            .batman
+              | API Diff is working but there are no logs to display.
+              .robin Either there are no diffs to show or you haven't use any API routes.
 
       .footer
         .navigator
-          .item 1
-          .item 8
-          .item 9
-          .item 10
-          .item 11
-          .item 12
-          .item 15
+          .item(
+            v-for="page in pages",
+            v-bind:class="{current:page.current}",
+            v-on:click="goToPage(page.name)"
+          ) {{ page.name }}
