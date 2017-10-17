@@ -5,7 +5,8 @@ export const {
   APP_NAME,
   PROXY_PORT,
   ADMIN_PORT,
-  SECRET
+  SECRET,
+  WEBHOOK_URL
 } = process.env;
 
 export const HTTP_SERVER_PORT = (env =>
