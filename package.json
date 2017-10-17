@@ -8,7 +8,8 @@
     "lint": "./node_modules/.bin/eslint src/.",
     "test": "ENVIRONMENT=test ./node_modules/.bin/jest --runInBand --forceExit",
     "predev": "yarn install",
-    "dev": "nodemon index.js | ./node_modules/.bin/bunyan -l debug -o short"
+    "dev": "nodemon index.js | ./node_modules/.bin/bunyan -l debug -o short",
+    "start": "node index.js"
   },
   "author": {
     "name": "Your name",
