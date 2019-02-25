@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import forwardRequest from './core/forwardRequest';
 import semanticDiff from './core/semanticDiff';
 import brain from './core/fishBrain';
+import webHookTriggerer from './core/webHookTriggerer';
 import './admin-server';
 
 logger.info('App Started');
@@ -18,12 +19,14 @@ diff.get('*', async (req, res) => {
   const realResponses = await Promise.all(responses);
   const sDiff = await semanticDiff(...realResponses);
   if (sDiff) {
-    brain.set(sDiff, { url, method });
+    const [primaryResponse, , candidateResponse] = realResponses;
+    webHookTriggerer({ primaryResponse, candidateResponse, sDiff: diff, req });
   }
+  brain.set(sDiff, { url, method });
 });
 
 diff.listen(config.PROXY_PORT, () => {
   logger.info(`Proxy app listening on port ${config.PROXY_PORT}!`);
 });
 
-export default true;
+export default diff;

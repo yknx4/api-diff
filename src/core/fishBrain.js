@@ -5,8 +5,8 @@
  */
 
 const fishBrain = [];
-const memoryItems = 500;
-const itemsByPage = 20;
+const memoryItems = 5000;
+const itemsByPage = 10;
 
 const set = (diff, keys) => {
   fishBrain.unshift({
@@ -17,16 +17,18 @@ const set = (diff, keys) => {
   fishBrain.length = maxSize;
 };
 const get = (page = 1) => {
-  const paginatedItems = fishBrain.slice(
+  const shrinked = fishBrain.filter(e => e);
+  const paginatedItems = shrinked.slice(
     (page - 1) * itemsByPage,
     (page - 1) * itemsByPage + itemsByPage
   );
   return {
+    total_requests: fishBrain.length,
     pagination: {
       itemsByPage,
       page,
-      totalPages: Math.ceil(fishBrain.length / itemsByPage),
-      totalItems: fishBrain.length
+      totalPages: Math.ceil(shrinked.length / itemsByPage),
+      totalItems: shrinked.length
     },
     paginatedItems
   };

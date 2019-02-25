@@ -41,7 +41,10 @@
     padding 4px 10px 10px 10px
     text-align right
     border-radius 0 0 6px 6px
-
-  &:hover
+  &:hover:not(.no-click)
     .route, .timestamp
       background-color darken(#8f265a, -5%)
+  &.no-click
+    cursor default
+    > *
+      background-color #444    

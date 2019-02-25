@@ -12,7 +12,8 @@ const env = {
       'src/**/*.js',
       '!src/logger.js',
       '!src/**/index.js',
-      '!src/**/config.js'
+      '!src/**/config.js',
+      '!src/admin-server/assets/scripts/*'
     ],
     coverageDirectory: 'coverage',
     coverageThreshold: {

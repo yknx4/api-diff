@@ -8,7 +8,8 @@
     "lint": "./node_modules/.bin/eslint src/.",
     "test": "ENVIRONMENT=test ./node_modules/.bin/jest --runInBand --forceExit",
     "predev": "yarn install",
-    "dev": "nodemon index.js | ./node_modules/.bin/bunyan -l debug -o short"
+    "dev": "nodemon index.js | ./node_modules/.bin/bunyan -l debug -o short",
+    "start": "node index.js"
   },
   "author": {
     "name": "Your name",
@@ -40,8 +41,9 @@
     "prettier-eslint": "^8.2.0",
     "pug": "^2.0.0-rc.4",
     "redbird": "^0.7.0",
-    "request": "^2.83.0",
-    "stylus": "^0.54.5"
+    "request-promise-native": "^1.0.5",
+    "stylus": "^0.54.5",
+    "supertest": "^3.0.0"
   },
   "lint-staged": {
     "src/**/*.{js,json}": [
